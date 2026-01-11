@@ -55,8 +55,21 @@ class FilesBloc extends Bloc<FilesEvent, FilesState> {
       }
     });
 
-    on<NavigateToPath>((event, emit) {
-      currentPath = event.path;
+
+    String getParentPath(String path) {
+      if (path == '~') return '~';
+      final parts = path.split('/').where((p) => p.isNotEmpty).toList();
+      if (parts.length <= 1) return '~';
+      parts.removeLast();
+      return '~/' + parts.join('/');
+    }
+
+    on<NavigateToPath>((event, emit) async {
+      if (event.path == '..') {
+        currentPath = getParentPath(currentPath);
+      } else {
+        currentPath = event.path;
+      }
       add(LoadFiles());
     });
 

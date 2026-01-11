@@ -39,6 +39,7 @@ dependencies:
   dio: ^5.4.0
   connectivity_plus: ^6.0.3
   get_it: ^7.6.0
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
